@@ -62,10 +62,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
-  if (number === undefined) {
-    number = 0;
-  }
+function returnCounter(number = 0) {
   return function addNum() {
     number++;
     return number;
@@ -101,9 +98,8 @@ function returnArgumentsArray() {
    console.log(newSum()) выведет 6
  */
 function bindFunction(fn, ...args) {
-  const result = fn;
   return function () {
-    return result(...args);
+    return fn(...args);
   };
 }
 
