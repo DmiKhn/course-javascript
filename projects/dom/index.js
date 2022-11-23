@@ -10,7 +10,11 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {}
+function createDivWithText(text) {
+  const createdDiv = document.createElement('div');
+  createdDiv.textContent = text;
+  return createdDiv;
+}
 
 /*
  Задание 2:
@@ -20,7 +24,9 @@ function createDivWithText(text) {}
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
-function prepend(what, where) {}
+function prepend(what, where) {
+  return where.insertBefore(what, where.firstChild);
+}
 
 /*
  Задание 3:
@@ -41,7 +47,16 @@ function prepend(what, where) {}
 
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
-function findAllPSiblings(where) {}
+function findAllPSiblings(where) {
+  const result = [];
+  const childrenArr = where.children;
+  for (let i = 0; i < childrenArr.length - 1; i++) {
+    if (childrenArr[i].nextSibling.nodeName === 'P') {
+      result.push(childrenArr[i]);
+    }
+  }
+  return result;
+}
 
 /*
  Задание 4:
@@ -63,7 +78,7 @@ function findAllPSiblings(where) {}
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -82,7 +97,14 @@ function findError(where) {
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
-function deleteTextNodes(where) {}
+function deleteTextNodes(where) {
+  for (const child of where.childNodes) {
+    if (child.nodeType === 3) {
+      child.remove();
+    }
+  }
+  return where;
+}
 
 /*
  Задание 6:
@@ -95,7 +117,24 @@ function deleteTextNodes(where) {}
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-function deleteTextNodesRecursive(where) {}
+function deleteTextNodesRecursive(where) {
+  const elem = where.childNodes;
+  for (let i = 0; i < elem.length; i++) {
+    if (elem[i].nodeType === 3) {
+      where.removeChild(elem[i]);
+      i--;
+    } else if (elem[i].nodeType === 1) {
+      deleteTextNodesRecursive(elem[i]);
+    }
+  }
+  // for (const child of where.childNodes) {
+  //   if (child.nodeType === 3) {
+  //     where.removeChild(child);
+  //   } else if (child.nodeType === 1) {
+  //     deleteTextNodesRecursive(child);
+  //   }
+  // }
+}
 
 /*
  Задание 7 *:
@@ -117,7 +156,37 @@ function deleteTextNodesRecursive(where) {}
      texts: 3
    }
  */
-function collectDOMStat(root) {}
+function collectDOMStat(root) {
+  const obj = {
+    texts: 0,
+    tags: {},
+    classes: {},
+  };
+
+  function collectInfo() {
+    for (const child of root.childNodes) {
+      if (child.nodeType === 3) {
+        obj.texts += 1;
+      } else if (child.nodeType === 1) {
+        if (child.tagName in obj.tags) {
+          obj.tags[child.tagName] += 1;
+        } else {
+          obj.tags[child.tagName] = 1;
+        }
+        for (const className of child.classList) {
+          if (className in obj.classes) {
+            obj.classes[className] += 1;
+          } else {
+            obj.classes[className] = 1;
+          }
+        }
+      }
+      collectInfo(child);
+    }
+  }
+  collectInfo(root);
+  return obj;
+}
 
 /*
  Задание 8 *:
