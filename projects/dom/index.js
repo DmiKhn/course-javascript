@@ -163,7 +163,7 @@ function collectDOMStat(root) {
     classes: {},
   };
 
-  function collectInfo() {
+  function collectInfo(root) {
     for (const child of root.childNodes) {
       if (child.nodeType === 3) {
         obj.texts += 1;
@@ -180,8 +180,8 @@ function collectDOMStat(root) {
             obj.classes[className] = 1;
           }
         }
+        collectInfo(child);
       }
-      collectInfo(child);
     }
   }
   collectInfo(root);
@@ -220,7 +220,19 @@ function collectDOMStat(root) {
      nodes: [div]
    }
  */
-function observeChildNodes(where, fn) {}
+function observeChildNodes(where, fn) {
+  // const mutObserver = new MutationObserver(entries => {
+  //   entries.forEach(mut => {
+  //     if (mut.type === 'childList') {
+  //       fn({
+  //         type:
+  //         nodes:
+  //       });
+  //     }
+  //   })
+  // })
+  // mutObserver.observe(where, {childList: true, subtree: true});
+}
 
 export {
   createDivWithText,
