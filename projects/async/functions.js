@@ -9,10 +9,8 @@
    delayPromise(3) // вернет promise, который будет разрешен через 3 секунды
  */
 function delayPromise(seconds) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, seconds * 1000);
+  return new Promise((resolve) => {
+    setTimeout(resolve, seconds * 1000);
   });
 }
 
@@ -30,31 +28,28 @@ function delayPromise(seconds) {
    loadAndSortTowns().then(towns => console.log(towns)) // должна вывести в консоль отсортированный массив городов
  */
 function loadAndSortTowns() {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open(
-      'GET',
-      'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json'
-    );
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      const sorted = xhr.response.sort((a, b) => (a.name > b.name ? 1 : -1));
-      resolve(sorted);
-    });
-    xhr.send();
-  });
   // return new Promise((resolve, reject) => {
-  //   fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-  //   .then(response => {
-  //      return response.json();
-  //   })
-  //   .then(items => {
-  //      let sorted = items.sort((a, b) => a.name > b.name ? 1 : -1;)
-  //    })
-  //    resolve(sorted);
-  //    })
-  //    .catch((e) => reject(e));
-  // })
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open(
+  //     'GET',
+  //     'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json'
+  //   );
+  //   xhr.responseType = 'json';
+  //   xhr.addEventListener('load', () => {
+  //     const sorted = xhr.response.sort((a, b) => (a.name > b.name ? 1 : -1));
+  //     resolve(sorted);
+  //   });
+  //   xhr.send();
+  // });
+  return new Promise((resolve, reject) => {
+    fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+      .then((response) => response.json())
+      .then((items) => {
+        const sorted = items.sort((a, b) => (a.name > b.name ? 1 : -1));
+        resolve(sorted);
+      })
+      .catch((e) => reject(e));
+  });
 }
 
 export { delayPromise, loadAndSortTowns };
