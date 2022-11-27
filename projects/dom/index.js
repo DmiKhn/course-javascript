@@ -221,17 +221,17 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
-  // const mutObserver = new MutationObserver(entries => {
-  //   entries.forEach(mut => {
-  //     if (mut.type === 'childList') {
-  //       fn({
-  //         type:
-  //         nodes:
-  //       });
-  //     }
-  //   })
-  // })
-  // mutObserver.observe(where, {childList: true, subtree: true});
+  const mutObserver = new MutationObserver((entries) => {
+    entries.forEach((mut) => {
+      if (mut.type === 'childList') {
+        fn({
+          type: mut.addedNodes.length ? 'insert' : 'remove',
+          nodes: [...(mut.addedNodes.length ? mut.addedNodes : mut.removedNodes)],
+        });
+      }
+    });
+  });
+  mutObserver.observe(where, { childList: true, subtree: true });
 }
 
 export {
