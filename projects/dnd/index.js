@@ -18,10 +18,72 @@
 import './dnd.html';
 
 const homeworkContainer = document.querySelector('#app');
+homeworkContainer.style.position = 'relative';
 
-document.addEventListener('mousemove', (e) => {});
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('.draggable-div')) {
+    const zone = e.target.parentNode;
+    // const newItem = createDiv();
+    console.log(zone);
+  }
+});
 
-export function createDiv() {}
+// function dragAndDrop(elem) {
+//   let currentDrag;
+
+//   elem.addEventListener('dragstart', (e) => {
+//     currentDrag = e.target
+//   })
+
+//   elem.addEventListener('dragover', (e) => {
+//     e.preventDefault();
+//   })
+
+//   elem.addEventListener('drop', (e) => {
+
+//   })
+// }
+
+// document.addEventListener('mousemove', (e) => {
+//   let currentDrag;
+//   let x = e.offsetX;
+//   let y = e.offsetY;
+
+//   e.target.addEventListener('dragstart', (el) => {
+//     currentDrag = el.target
+//   })
+
+//   e.target.addEventListener('dragover', (el) => {
+//     el.preventDefault();
+//   })
+
+//   e.target.addEventListener('drop', (el) => {
+//     e.target.style.top = `${y}px`
+//     e.target.style.left = `${x}px`
+//   })
+//   // console.log(x, y)
+// });
+
+export function createDiv() {
+  const ourDiv = document.createElement('div');
+  ourDiv.classList.add('.draggable-div');
+  ourDiv.draggable = true;
+
+  const randomCol = Math.floor(Math.random() * 16777215).toString(16);
+  const randomWidth = Math.floor(Math.random() * 100);
+  const randomHeight = Math.floor(Math.random() * 100);
+  const randomPosWidth = Math.floor(Math.random() * window.innerWidth);
+  const randomPosHeight = Math.floor(Math.random() * window.innerHeight);
+
+  ourDiv.style.background = `#${randomCol}`;
+  ourDiv.style.width = `${randomWidth}px`;
+  ourDiv.style.height = `${randomHeight}px`;
+  ourDiv.style.top = `${randomPosWidth}px`;
+  ourDiv.style.left = `${randomPosHeight}px`;
+  ourDiv.style.position = 'absolute';
+
+  return ourDiv;
+}
 
 const addDivButton = homeworkContainer.querySelector('#addDiv');
 
