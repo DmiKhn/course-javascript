@@ -11,9 +11,8 @@ export const formTemplate = `
 export const reviewTemplate = (review) => {
   return `
     <div class="review">
-      <div><strong>Место: </strong>${review.place}</div>
-      <div><strong>Имя: </strong>${review.author}</div>
-      <div><strong>Отзыв: </strong>${review.reviewText}</div>
+      <div><strong>${review.author}</strong> ${review.place}</div>
+      <div>${review.reviewText}</div>
     </div>
   `;
 };

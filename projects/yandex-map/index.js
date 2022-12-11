@@ -2,7 +2,6 @@ import { formTemplate, reviewTemplate } from './templates';
 
 import './style.css';
 import './yandex.html';
-import './layout.html';
 
 import { addReview, getReviews } from './db';
 
@@ -38,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `<div class="reviews">${getReviewList(geoObjectsInCluster)}</div>`
       );
 
-      console.log({ clusterBaloonContentLayout: content });
+      console.log({ clusterBalloonContentLayout: content });
 
-      clusterEvent.get('target').options.set({ clusterBaloonContentLayout: content });
+      clusterEvent.get('target').options.set({ clusterBalloonContentLayout: content });
     });
 
     getGeoObjects();
