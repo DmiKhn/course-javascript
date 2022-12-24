@@ -30,7 +30,8 @@ export default class MegaChat {
         this.onSend.bind(this)
       ),
       userPhoto: new UserPhoto(
-        document.querySelector('[data-role=user-photo]'),
+        // document.querySelector('[data-role=user-photo]'),
+        document.querySelector('.user__photo'),
         this.onUpload.bind(this)
       ),
     };
@@ -41,7 +42,7 @@ export default class MegaChat {
     this.ui.userPhoto.set(data);
     console.log(data);
 
-    fetch('http://localhost:8080/chat/photos', {
+    fetch('http://localhost:4000/chat/photos', {
       method: 'post',
       body: JSON.stringify({
         name: this.ui.userName.get(),
