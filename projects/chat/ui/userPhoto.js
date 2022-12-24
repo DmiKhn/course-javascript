@@ -3,8 +3,11 @@ export default class UserPhoto {
     this.elem = elem;
     this.onUpload = onUpload;
 
+    console.log(this.elem);
+
     this.elem.addEventListener('dragover', (e) => {
       if (e.dataTransfer.items.length && e.dataTransfer.items[0].kind === 'file') {
+        console.log('is over');
         e.preventDefault();
       }
     });
@@ -20,6 +23,7 @@ export default class UserPhoto {
   }
 
   set(photo) {
+    console.log(this.elem);
     this.elem.style.backgroundImage = `url(${photo})`;
   }
 }
