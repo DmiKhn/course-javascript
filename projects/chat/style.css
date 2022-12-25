@@ -221,7 +221,18 @@
 .message-item {
   display: flex;
   font-size: 16px;
+  align-items: center;
   
+}
+
+.user-avatar, .message-item-photo {
+  margin-right: 4px;
+  margin-left: 6px;
+  background: url(http://localhost:4000/chat/photos/no-photo.png);
+  background-size: cover;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 .message-item-right {

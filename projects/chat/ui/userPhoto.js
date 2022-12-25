@@ -1,5 +1,5 @@
 export default class UserPhoto {
-  constuctor(elem, onUpload) {
+  constructor(elem, onUpload) {
     this.elem = elem;
     this.onUpload = onUpload;
 
@@ -21,11 +21,7 @@ export default class UserPhoto {
   }
 
   set(photo) {
-    if (this.elem === undefined) {
-      this.elem.style.backgroundImage = '../no-photo.png';
-    } else {
-      console.log(this.elem);
-      this.elem.style.backgroundImage = `url(${photo})`;
-    }
+    console.log(this.elem);
+    this.elem.style.backgroundImage = `url(${photo})`;
   }
 }

@@ -62,7 +62,9 @@ export default class MegaChat {
     this.ui.loginWindow.hide();
     this.ui.mainWindow.show();
     this.ui.userName.set(name);
-    this.ui.userPhoto.set(`/chat/photos/${name}.png?t=${Date.now()}`);
+    this.ui.userPhoto.set(
+      `http://localhost:4000/chat/photos/${name}.png?t=${Date.now()}`
+    );
     // console.log(name)
   }
 
@@ -83,12 +85,13 @@ export default class MegaChat {
     } else if (type === 'text-message') {
       this.ui.messageList.add(from, data.message);
     } else if (type === 'photo-changed') {
+      console.log('changed photo');
       const avatars = document.querySelectorAll(
         `[data-role=user-avatar][data-user=${data.name}]`
       );
 
       for (const avatar of avatars) {
-        avatar.getElementsByClassName.backgroundImage = `url(/mega-chat/photos/${
+        avatar.style.backgroundImage = `url(http://localhost:4000/chat/photos/${
           data.name
         }.png?t=${Date.now()})`;
       }
